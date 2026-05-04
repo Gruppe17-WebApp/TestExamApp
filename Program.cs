@@ -1,8 +1,10 @@
+using TestExamApp.Services;
 using Microsoft.EntityFrameworkCore;
 using TestExamApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient<BookApiService>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=app.db"));
 
