@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using TestExamApp.Models;
 
 namespace TestExamApp.Tests;
@@ -37,5 +38,45 @@ public class BookTests
         };
 
         Assert.Equal(2, library.Books.Count);
+    }
+
+    [Fact]
+    public void Book_WithoutTitle_IsInvalid()
+    {
+        var book = new Book
+        {
+            Title = "",
+            Author = "Knut Hamsun",
+            PublishedYear = 1890,
+            LibraryId = 1
+        };
+
+        var results = ValidateModel(book);
+
+        Assert.Contains(results, r => r.MemberNames.Contains(nameof(Book.Title)));
+    }
+
+    [Fact]
+    public void Library_WithoutName_IsInvalid()
+    {
+        var library = new Library
+        {
+            Name = "",
+            City = "Drammen"
+        };
+
+        var results = ValidateModel(library);
+
+        Assert.Contains(results, r => r.MemberNames.Contains(nameof(Library.Name)));
+    }
+
+    private static List<ValidationResult> ValidateModel(object model)
+    {
+        var results = new List<ValidationResult>();
+        var context = new ValidationContext(model);
+
+        Validator.TryValidateObject(model, context, results, validateAllProperties: true);
+
+        return results;
     }
 }
