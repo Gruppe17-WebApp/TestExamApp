@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using TestExamApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite("Data Source=app.db"));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
