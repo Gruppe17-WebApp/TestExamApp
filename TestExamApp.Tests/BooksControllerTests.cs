@@ -89,4 +89,44 @@ public class BooksControllerTests
         Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal(1, await context.Books.CountAsync());
     }
+
+    [Fact]
+    public async Task DeleteConfirmed_RemovesBook()
+    {
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        await using var context = new ApplicationDbContext(options);
+
+        var library = new Library
+        {
+            Name = "Testbibliotek",
+            City = "Oslo"
+        };
+
+        context.Libraries.Add(library);
+        await context.SaveChangesAsync();
+
+        var book = new Book
+        {
+            Title = "ToDelete",
+            Author = "Test Author",
+            PublishedYear = 2024,
+            LibraryId = library.Id
+        };
+
+        context.Books.Add(book);
+        await context.SaveChangesAsync();
+
+        var controller = new BooksController(
+            context,
+            new BookApiService(new HttpClient())
+        );
+
+        var result = await controller.DeleteConfirmed(book.Id);
+
+        Assert.IsType<RedirectToActionResult>(result);
+        Assert.Equal(0, await context.Books.CountAsync());
+    }
 }
