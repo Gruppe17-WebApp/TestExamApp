@@ -1,22 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TestExamApp.Data;
 using TestExamApp.Models;
+using TestExamApp.Services;
 
 namespace TestExamApp.Controllers
 {
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly BookApiService _apiService;
 
-        public BooksController(ApplicationDbContext context)
+        public BooksController(ApplicationDbContext context, BookApiService apiService)
         {
             _context = context;
+            _apiService = apiService;
         }
 
         // GET: Books
@@ -24,6 +23,35 @@ namespace TestExamApp.Controllers
         {
             var applicationDbContext = _context.Books.Include(b => b.Library);
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> ImportFromApi()
+        {
+            var defaultLibrary = await _context.Libraries.FirstOrDefaultAsync();
+
+            if (defaultLibrary == null)
+            {
+                defaultLibrary = new Library
+                {
+                    Name = "Importert bibliotek",
+                    City = "Ukjent"
+                };
+
+                _context.Libraries.Add(defaultLibrary);
+                await _context.SaveChangesAsync();
+            }
+
+            var booksFromApi = await _apiService.GetBooksFromApi();
+
+            foreach (var book in booksFromApi)
+            {
+                book.LibraryId = defaultLibrary.Id;
+                _context.Books.Add(book);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Books/Details/5
@@ -37,6 +65,7 @@ namespace TestExamApp.Controllers
             var book = await _context.Books
                 .Include(b => b.Library)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (book == null)
             {
                 return NotFound();
@@ -48,13 +77,11 @@ namespace TestExamApp.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "City");
+            ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "Name");
             return View();
         }
 
         // POST: Books/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Author,Isbn,PublishedYear,LibraryId")] Book book)
@@ -65,7 +92,8 @@ namespace TestExamApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "City", book.LibraryId);
+
+            ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "Name", book.LibraryId);
             return View(book);
         }
 
@@ -78,17 +106,17 @@ namespace TestExamApp.Controllers
             }
 
             var book = await _context.Books.FindAsync(id);
+
             if (book == null)
             {
                 return NotFound();
             }
-            ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "City", book.LibraryId);
+
+            ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "Name", book.LibraryId);
             return View(book);
         }
 
         // POST: Books/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Author,Isbn,PublishedYear,LibraryId")] Book book)
@@ -111,14 +139,14 @@ namespace TestExamApp.Controllers
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+
+                    throw;
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "City", book.LibraryId);
+
+            ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "Name", book.LibraryId);
             return View(book);
         }
 
@@ -133,6 +161,7 @@ namespace TestExamApp.Controllers
             var book = await _context.Books
                 .Include(b => b.Library)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (book == null)
             {
                 return NotFound();
@@ -147,6 +176,7 @@ namespace TestExamApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var book = await _context.Books.FindAsync(id);
+
             if (book != null)
             {
                 _context.Books.Remove(book);
