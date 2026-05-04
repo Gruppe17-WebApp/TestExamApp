@@ -43,6 +43,8 @@ namespace TestExamApp.Controllers
 
             var booksFromApi = await _apiService.GetBooksFromApi();
 
+            Console.WriteLine($"Antall bøker fra API: {booksFromApi.Count} - BooksController.cs:46");
+
             foreach (var book in booksFromApi)
             {
               if (!_context.Books.Any(b => b.Title == book.Title))
