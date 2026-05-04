@@ -52,4 +52,41 @@ public class BooksControllerTests
         Assert.NotNull(book.Library);
         Assert.Equal("Testbibliotek", book.Library.Name);
     }
+
+    [Fact]
+    public async Task Create_AddsBookToDatabase()
+    {
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        await using var context = new ApplicationDbContext(options);
+
+        var library = new Library
+        {
+            Name = "Testbibliotek",
+            City = "Oslo"
+        };
+
+        context.Libraries.Add(library);
+        await context.SaveChangesAsync();
+
+        var controller = new BooksController(
+            context,
+            new BookApiService(new HttpClient())
+        );
+
+        var book = new Book
+        {
+            Title = "Test Book",
+            Author = "Test Author",
+            PublishedYear = 2024,
+            LibraryId = library.Id
+        };
+
+        var result = await controller.Create(book);
+
+        Assert.IsType<RedirectToActionResult>(result);
+        Assert.Equal(1, await context.Books.CountAsync());
+    }
 }
