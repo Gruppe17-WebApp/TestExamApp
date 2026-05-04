@@ -45,8 +45,11 @@ namespace TestExamApp.Controllers
 
             foreach (var book in booksFromApi)
             {
-                book.LibraryId = defaultLibrary.Id;
-                _context.Books.Add(book);
+              if (!_context.Books.Any(b => b.Title == book.Title))
+                {
+                    book.LibraryId = defaultLibrary.Id;
+                    _context.Books.Add(book);
+                }
             }
 
             await _context.SaveChangesAsync();
