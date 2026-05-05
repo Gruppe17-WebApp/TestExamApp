@@ -1,36 +1,37 @@
 @model TestExamApp.Models.Library
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Opprett bibliotek";
 }
 
-<h1>Create</h1>
+<h1>Opprett bibliotek</h1>
 
-<h4>Library</h4>
+<h4>Nytt bibliotek</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+
+            <div class="form-group mb-2">
+                <label asp-for="Name">Navn</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
+
+            <div class="form-group mb-3">
+                <label asp-for="City">By</label>
                 <input asp-for="City" class="form-control" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Opprett" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Tilbake</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

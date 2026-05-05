@@ -1,8 +1,36 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Hjem";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bibliotekssystem</h1>
+    <p class="lead">En enkel webapplikasjon for å administrere bøker og biblioteker</p>
+</div>
+
+<hr />
+
+<div class="row text-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-title">Bøker</h3>
+                <p class="card-text">Se, opprett, rediger og slett bøker i databasen.</p>
+                <a asp-controller="Books" asp-action="Index" class="btn btn-primary">
+                    Gå til bøker
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-title">Biblioteker</h3>
+                <p class="card-text">Administrer biblioteker og deres lokasjon.</p>
+                <a asp-controller="Libraries" asp-action="Index" class="btn btn-success">
+                    Gå til biblioteker
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

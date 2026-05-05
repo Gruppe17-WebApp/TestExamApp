@@ -1,50 +1,53 @@
 @model TestExamApp.Models.Book
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Opprett bok";
 }
 
-<h1>Create</h1>
+<h1>Opprett bok</h1>
 
-<h4>Book</h4>
+<h4>Ny bok</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+
+            <div class="form-group mb-2">
+                <label asp-for="Title" class="control-label">Tittel</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
+
+            <div class="form-group mb-2">
+                <label asp-for="Author" class="control-label">Forfatter</label>
                 <input asp-for="Author" class="form-control" />
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Isbn" class="control-label"></label>
+
+            <div class="form-group mb-2">
+                <label asp-for="Isbn" class="control-label">ISBN</label>
                 <input asp-for="Isbn" class="form-control" />
                 <span asp-validation-for="Isbn" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PublishedYear" class="control-label"></label>
+
+            <div class="form-group mb-2">
+                <label asp-for="PublishedYear" class="control-label">Utgivelsesår</label>
                 <input asp-for="PublishedYear" class="form-control" />
                 <span asp-validation-for="PublishedYear" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LibraryId" class="control-label"></label>
-                <select asp-for="LibraryId" class ="form-control" asp-items="ViewBag.LibraryId"></select>
+
+            <div class="form-group mb-3">
+                <label asp-for="LibraryId" class="control-label">Bibliotek</label>
+                <select asp-for="LibraryId" class="form-control" asp-items="ViewBag.LibraryId"></select>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Opprett" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Tilbake</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
