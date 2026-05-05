@@ -1,19 +1,20 @@
-# Testing
+# Testing:
+Prosjektet bruker xUnit.
 
-## Unit tests
+## Testfiler:
+- BookTests.cs
+- BooksControllerTests.cs
 
-Prosjektet bruker xUnit for enhetstesting.
+## Testene dekker:
+- Book og Library modeller
+- DataAnnotations-validering
+- 1:N-relasjon mellom Library og Book
+- BooksController Index
+- BooksController Create
+- BooksController Delete
 
-Følgende tester er implementert:
-
-- Opprettelse av Book og Library
-- Validering med DataAnnotations ([Required])
-- Relasjon mellom Book og Library (1:N)
-- Controller-test for Books (Index, Create, Delete)
-
-Database-testing gjøres med InMemory database.
-
-Kjør tester med:
-
+## Kjør tester:
 dotnet test
 
+## Siste resultat:
+7 tester kjørt, 0 feilet.
