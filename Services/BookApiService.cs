@@ -61,7 +61,7 @@ namespace TestExamApp.Services
             var firstCreator = creators[0];
             var name = GetString(firstCreator, "name");
 
-            return string.IsNullOrWhiteSpace(name) ? "Ukjent forfatter" : name;
+            return string.IsNullOrWhiteSpace(name) ? "Forfatter ikke oppgitt" : name;
         }
 
         private static JsonElement GetFirstPublication(JsonElement work)
