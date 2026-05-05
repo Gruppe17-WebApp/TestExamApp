@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization; // 🔥 NY
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TestExamApp.Data;
@@ -20,12 +21,14 @@ namespace TestExamApp.Controllers
         }
 
         // GET: Libraries
+        [AllowAnonymous] // 🔥 NY
         public async Task<IActionResult> Index()
         {
             return View(await _context.Libraries.ToListAsync());
         }
 
         // GET: Libraries/Details/5
+        [AllowAnonymous] // 🔥 NY
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,14 +47,14 @@ namespace TestExamApp.Controllers
         }
 
         // GET: Libraries/Create
+        [Authorize] // 🔥 NY
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Libraries/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize] // 🔥 NY
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,City")] Library library)
@@ -66,6 +69,7 @@ namespace TestExamApp.Controllers
         }
 
         // GET: Libraries/Edit/5
+        [Authorize] // 🔥 NY
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,8 +86,7 @@ namespace TestExamApp.Controllers
         }
 
         // POST: Libraries/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize] // 🔥 NY
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,City")] Library library)
@@ -117,6 +120,7 @@ namespace TestExamApp.Controllers
         }
 
         // GET: Libraries/Delete/5
+        [Authorize] // 🔥 NY
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +139,7 @@ namespace TestExamApp.Controllers
         }
 
         // POST: Libraries/Delete/5
+        [Authorize] // 🔥 NY
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -1,0 +1,61 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Logg inn";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="card shadow-lg p-4" style="width: 400px; border-radius: 15px;">
+
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Logg inn</h2>
+            <p class="text-muted">Velkommen tilbake</p>
+        </div>
+
+        <!--  SUCCESS MESSAGE -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success text-center">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" placeholder="navn@epost.no" />
+                <label asp-for="Input.Email">E-post</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" placeholder="passord" />
+                <label asp-for="Input.Password">Passord</label>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" asp-for="Input.RememberMe" />
+                <label class="form-check-label">Husk meg</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2">
+                Logg inn
+            </button>
+
+            <div class="text-center mt-3">
+                <a asp-page="./ForgotPassword">Glemt passord?</a>
+            </div>
+
+            <div class="text-center mt-2">
+                <span>Har du ikke bruker?</span><br />
+                <a asp-page="./Register">Registrer ny bruker</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

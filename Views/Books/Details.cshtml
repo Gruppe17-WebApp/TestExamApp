@@ -4,7 +4,7 @@
     ViewData["Title"] = "Detaljer";
 }
 
-<h1>Detaljer</h1>
+<h1 class="mb-3">Detaljer</h1>
 
 <div>
     <h4>Bokinformasjon</h4>
@@ -23,11 +23,19 @@
         <dd class="col-sm-9">@Model.PublishedYear</dd>
 
         <dt class="col-sm-3">Bibliotek</dt>
-        <dd class="col-sm-9">@Model.Library.City</dd>
+        <dd class="col-sm-9">@Model.Library?.Name</dd>
     </dl>
 </div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Rediger</a>
-    <a asp-action="Index" class="btn btn-secondary">Tilbake</a>
+<div class="mt-3">
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            Rediger
+        </a>
+    }
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Tilbake
+    </a>
 </div>
