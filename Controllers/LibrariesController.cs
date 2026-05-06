@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization; // 🔥 NY
+using Microsoft.AspNetCore.Authorization; 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TestExamApp.Data;
@@ -20,15 +20,13 @@ namespace TestExamApp.Controllers
             _context = context;
         }
 
-        // GET: Libraries
-        [AllowAnonymous] // 🔥 NY
+        [AllowAnonymous] 
         public async Task<IActionResult> Index()
         {
             return View(await _context.Libraries.ToListAsync());
         }
 
-        // GET: Libraries/Details/5
-        [AllowAnonymous] // 🔥 NY
+        [AllowAnonymous] 
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,15 +44,13 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
-        // GET: Libraries/Create
-        [Authorize] // 🔥 NY
+        [Authorize] 
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Libraries/Create
-        [Authorize] // 🔥 NY
+        [Authorize] 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,City")] Library library)
@@ -68,8 +64,7 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
-        // GET: Libraries/Edit/5
-        [Authorize] // 🔥 NY
+        [Authorize] 
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,8 +80,7 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
-        // POST: Libraries/Edit/5
-        [Authorize] // 🔥 NY
+        [Authorize] 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,City")] Library library)
@@ -119,8 +113,7 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
-        // GET: Libraries/Delete/5
-        [Authorize] // 🔥 NY
+        [Authorize] 
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,8 +131,7 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
-        // POST: Libraries/Delete/5
-        [Authorize] // 🔥 NY
+        [Authorize] 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -6,7 +6,7 @@ using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// API service
+// API 
 builder.Services.AddHttpClient<BookApiService>();
 
 // Database
@@ -25,7 +25,7 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Norsk kultur (SKAL være her – før requests starter)
+// nn
 var culture = new CultureInfo("nb-NO");
 CultureInfo.DefaultThreadCurrentCulture = culture;
 CultureInfo.DefaultThreadCurrentUICulture = culture;
@@ -39,7 +39,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
-// riktig rekkefølge
+// riktigg rekke følge
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -54,7 +54,7 @@ app.MapControllerRoute(
 // Identity routes
 app.MapRazorPages();
 
-// Seed + migrate
+// her e dt Seed + migrate
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
