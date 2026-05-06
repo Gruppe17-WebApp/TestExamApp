@@ -4,49 +4,50 @@
     ViewData["Title"] = "Rediger bok";
 }
 
-<h1>Rediger bok</h1>
+<h1 class="mb-3">Rediger bok</h1>
 
-<h4>Endre bok</h4>
+<h4 class="text-muted">Endre bok</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <input type="hidden" asp-for="Id" />
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
 
-            <div class="form-group mb-2">
-                <label asp-for="Title" class="control-label">Tittel</label>
+            <div class="form-group mb-3">
+                <label asp-for="Title">Tittel</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
-            <div class="form-group mb-2">
-                <label asp-for="Author" class="control-label">Forfatter</label>
+            <div class="form-group mb-3">
+                <label asp-for="Author">Forfatter</label>
                 <input asp-for="Author" class="form-control" />
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
 
-            <div class="form-group mb-2">
-                <label asp-for="Isbn" class="control-label">ISBN</label>
+            <div class="form-group mb-3">
+                <label asp-for="Isbn">ISBN</label>
                 <input asp-for="Isbn" class="form-control" />
                 <span asp-validation-for="Isbn" class="text-danger"></span>
             </div>
 
-            <div class="form-group mb-2">
-                <label asp-for="PublishedYear" class="control-label">Utgivelsesår</label>
+            <div class="form-group mb-3">
+                <label asp-for="PublishedYear">Utgivelsesår</label>
                 <input asp-for="PublishedYear" class="form-control" />
                 <span asp-validation-for="PublishedYear" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="LibraryId" class="control-label">Bibliotek</label>
+                <label asp-for="LibraryId">Bibliotek</label>
                 <select asp-for="LibraryId" class="form-control" asp-items="ViewBag.LibraryId"></select>
                 <span asp-validation-for="LibraryId" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="Lagre endringer" class="btn btn-warning" />
+            <div class="form-group d-flex gap-2">
+                <input type="submit" value="Lagre endringer" class="btn btn-edit" />
                 <a asp-action="Index" class="btn btn-secondary">Tilbake</a>
             </div>
         </form>

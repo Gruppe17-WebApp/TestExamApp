@@ -4,10 +4,10 @@
     ViewData["Title"] = "Detaljer";
 }
 
-<h1>Detaljer</h1>
+<h1 class="mb-3">Detaljer</h1>
 
 <div>
-    <h4>Bibliotek</h4>
+    <h4 class="text-muted">Bibliotek</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-3">Navn</dt>
@@ -18,7 +18,15 @@
     </dl>
 </div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Rediger</a>
-    <a asp-action="Index" class="btn btn-secondary">Tilbake</a>
+<div class="d-flex gap-2">
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-edit">
+            Rediger
+        </a>
+    }
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Tilbake
+    </a>
 </div>

@@ -4,17 +4,17 @@
     ViewData["Title"] = "Opprett bibliotek";
 }
 
-<h1>Opprett bibliotek</h1>
+<h1 class="mb-3">Opprett bibliotek</h1>
 
-<h4>Nytt bibliotek</h4>
+<h4 class="text-muted">Nytt bibliotek</h4>
 <hr />
 
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
 
-            <div class="form-group mb-2">
+            <div class="form-group mb-3">
                 <label asp-for="Name">Navn</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
@@ -26,7 +26,7 @@
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group d-flex gap-2 mt-2">
                 <input type="submit" value="Opprett" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-secondary">Tilbake</a>
             </div>

@@ -37,17 +37,20 @@
             <td>@item.Library?.Name</td>
             <td class="text-center">
 
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                <a asp-action="Details" asp-route-id="@item.Id"
+                   class="btn btn-sm btn-details me-1">
                     Detaljer
                 </a>
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                    <a asp-action="Edit" asp-route-id="@item.Id"
+                       class="btn btn-sm btn-edit me-1">
                         Rediger
                     </a>
 
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                    <a asp-action="Delete" asp-route-id="@item.Id"
+                       class="btn btn-sm btn-delete">
                         Slett
                     </a>
                 }

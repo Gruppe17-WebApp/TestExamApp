@@ -4,12 +4,14 @@
     ViewData["Title"] = "Slett bibliotek";
 }
 
-<h1>Slett bibliotek</h1>
+<h1 class="mb-3">Slett bibliotek</h1>
 
-<h3 class="text-danger">Er du sikker på at du vil slette dette?</h3>
+<h5 class="text-danger mb-3">
+    Er du sikker på at du vil slette dette biblioteket?
+</h5>
 
 <div>
-    <h4>Bibliotek</h4>
+    <h4 class="text-muted">Bibliotek</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-3">Navn</dt>
@@ -19,10 +21,10 @@
         <dd class="col-sm-9">@Model.City</dd>
     </dl>
 
-    <form asp-action="Delete">
+    <form asp-action="Delete" class="d-flex gap-2 mt-3">
         <input type="hidden" asp-for="Id" />
 
-        <input type="submit" value="Slett" class="btn btn-danger" />
+        <input type="submit" value="Slett" class="btn btn-delete" />
         <a asp-action="Index" class="btn btn-secondary">Tilbake</a>
     </form>
 </div>

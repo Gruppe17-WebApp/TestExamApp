@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/TestExamApp.styles.css" asp-append-version="true" />
 </head>
 <body>
+
 <header>
     <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -39,7 +40,7 @@
                     </li>
                 </ul>
 
-                <!-- HØYRE (Identity) -->
+                <!-- HØYRE -->
                 <ul class="navbar-nav">
                     <partial name="_LoginPartial" />
                 </ul>
@@ -49,17 +50,17 @@
     </nav>
 </header>
 
-<!--  KUN DENNE DELEN ER ENDRET -->
-<div class="container mt-4">
-    <div class="card shadow-sm p-4" style="border-radius: 15px;">
-        <main role="main">
+<!-- VIKTIG: main er flex-element -->
+<main role="main" class="flex-fill">
+    <div class="container mt-4">
+        <div class="card shadow-sm p-4" style="border-radius: 15px;">
             @RenderBody()
-        </main>
+        </div>
     </div>
-</div>
+</main>
 
 <footer class="border-top footer text-muted">
-    <div class="container">
+    <div class="container text-center">
         &copy; 2026 - Bibliotekssystem
     </div>
 </footer>

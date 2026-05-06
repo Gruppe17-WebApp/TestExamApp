@@ -76,9 +76,17 @@ namespace TestExamApp.Areas.Identity.Pages.Account
             if (!ModelState.IsValid)
                 return Page();
 
+            //  SJEKK OM E-POST ALLEREDE FINNES
+            var existingUser = await _userManager.FindByEmailAsync(Input.Email);
+            if (existingUser != null)
+            {
+                ModelState.AddModelError(string.Empty, "En bruker med denne e-posten finnes allerede.");
+                return Page();
+            }
+
             var user = new IdentityUser();
 
-            // 👇 login fortsatt med e-post
+            // login fortsatt med e-post
             await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
@@ -87,14 +95,37 @@ namespace TestExamApp.Areas.Identity.Pages.Account
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
-                    ModelState.AddModelError(string.Empty, error.Description);
+                {
+                    var message = error.Description;
+
+                    //  Norsk oversettelse av vanlige Identity-feil
+                    if (message.Contains("Passwords must be at least"))
+                        message = "Passordet må være minst 6 tegn.";
+
+                    else if (message.Contains("uppercase"))
+                        message = "Passordet må inneholde minst én stor bokstav.";
+
+                    else if (message.Contains("lowercase"))
+                        message = "Passordet må inneholde minst én liten bokstav.";
+
+                    else if (message.Contains("digit"))
+                        message = "Passordet må inneholde minst ett tall.";
+
+                    else if (message.Contains("non alphanumeric"))
+                        message = "Passordet må inneholde minst ett spesialtegn.";
+
+                    else if (message.Contains("already taken"))
+                        message = "En bruker med denne e-posten finnes allerede.";
+
+                    ModelState.AddModelError(string.Empty, message);
+                }
 
                 return Page();
             }
 
             _logger.LogInformation("Bruker opprettet.");
 
-            // 🔥 KRITISK: lagre navn
+            //  lagre navn som claim
             var claimResult = await _userManager.AddClaimAsync(
                 user,
                 new Claim("FullName", Input.Name)
@@ -106,7 +137,7 @@ namespace TestExamApp.Areas.Identity.Pages.Account
                 return Page();
             }
 
-            // ❌ ingen auto login
+            // 🔥 ingen auto login
             TempData["SuccessMessage"] = "Registrering vellykket! Du kan nå logge inn.";
 
             return RedirectToPage("./Login");

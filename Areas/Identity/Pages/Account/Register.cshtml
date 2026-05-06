@@ -30,12 +30,16 @@
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
 
+            <small class="text-muted">
+                Passord må inneholde minst 6 tegn, inkludere store og små bokstaver, et tall og et spesialtegn.
+            </small>
+            
             <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" placeholder="passord" />
                 <label asp-for="Input.Password">Passord</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-
+            
             <div class="form-floating mb-3">
                 <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="bekreft passord" />
                 <label asp-for="Input.ConfirmPassword">Bekreft passord</label>

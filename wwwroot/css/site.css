@@ -19,6 +19,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  background: linear-gradient(120deg, #f5f6f8, #e6e8eb); /* 🔥 liten forbedring */
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -30,52 +31,51 @@ body {
   text-align: start;
 }
 
-/* 🔥 Smooth hover på kort */
-.card {
-    border: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-/* 🔥 Knapper får liv */
+/* 🔥 Litt bedre knapper generelt */
 .btn {
-    transition: all 0.2s ease;
-    border-radius: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* 🔥 Tabell hover */
-.table-hover tbody tr {
-    transition: background-color 0.2s ease;
+/* 🔥 Profesjonelle action-knapper */
+
+/* Rediger */
+.btn-edit {
+  background-color: #f59e0b;
+  color: #fff;
+  border: none;
 }
 
-.table-hover tbody tr:hover {
-    background-color: #f5f7fa;
+.btn-edit:hover {
+  background-color: #d97706;
+  color: #fff;
 }
 
-/* 🔥 Navbar hover */
-.nav-link {
-    transition: color 0.2s ease;
+/* Detaljer */
+.btn-details {
+  background-color: #3b82f6;
+  color: #fff;
+  border: none;
 }
 
-.nav-link:hover {
-    color: #0d6efd !important;
+.btn-details:hover {
+  background-color: #2563eb;
+  color: #fff;
 }
 
-/* 🔥 Fade-in på siden */
-body {
-    animation: fadeIn 0.4s ease-in;
+/* Slett */
+.btn-delete {
+  background-color: #ef4444;
+  color: #fff;
+  border: none;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.btn-delete:hover {
+  background-color: #dc2626;
+  color: #fff;
 }
