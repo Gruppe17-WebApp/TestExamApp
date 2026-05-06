@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization; 
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TestExamApp.Data;
 using TestExamApp.Models;
@@ -20,161 +19,117 @@ namespace TestExamApp.Controllers
             _context = context;
         }
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
-        [AllowAnonymous] 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Libraries.ToListAsync());
         }
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
-        [AllowAnonymous] 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var library = await _context.Libraries
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (library == null)
-            {
                 return NotFound();
-            }
 
             return View(library);
         }
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
-        [Authorize] 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
-        [Authorize] 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,City")] Library library)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(library);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(library);
+            if (!ModelState.IsValid)
+                return View(library);
+
+            _context.Add(library);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
-        [Authorize] 
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var library = await _context.Libraries.FindAsync(id);
+
             if (library == null)
-            {
                 return NotFound();
-            }
+
             return View(library);
         }
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
-        [Authorize] 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,City")] Library library)
         {
             if (id != library.Id)
-            {
                 return NotFound();
+
+            if (!ModelState.IsValid)
+                return View(library);
+
+            try
+            {
+                _context.Update(library);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!LibraryExists(library.Id))
+                    return NotFound();
+                else
+                    throw;
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(library);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LibraryExists(library.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(library);
+            return RedirectToAction(nameof(Index));
         }
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
-        [Authorize] 
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var library = await _context.Libraries
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (library == null)
-            {
                 return NotFound();
-            }
 
             return View(library);
         }
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
-        [Authorize] 
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var library = await _context.Libraries.FindAsync(id);
+
             if (library != null)
             {
                 _context.Libraries.Remove(library);
             }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
