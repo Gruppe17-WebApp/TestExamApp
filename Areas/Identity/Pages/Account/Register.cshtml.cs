@@ -137,7 +137,7 @@ namespace TestExamApp.Areas.Identity.Pages.Account
                 return Page();
             }
 
-            // 🔥 ingen auto login
+            // ingn auto login
             TempData["SuccessMessage"] = "Registrering vellykket! Du kan nå logge inn.";
 
             return RedirectToPage("./Login");
