@@ -19,13 +19,13 @@ namespace TestExamApp.Controllers
             _context = context;
         }
 
-        [AllowAnonymous]
+        [AllowAnonymous] 
         public async Task<IActionResult> Index()
         {
             return View(await _context.Libraries.ToListAsync());
         }
 
-        [AllowAnonymous]
+        [AllowAnonymous] 
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,13 +40,13 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
-        [Authorize]
+        [Authorize] 
         public IActionResult Create()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize] 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,City")] Library library)
@@ -60,7 +60,7 @@ namespace TestExamApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize]
+        [Authorize] 
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,7 +74,7 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
-        [Authorize]
+        [Authorize] 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,City")] Library library)
@@ -101,7 +101,7 @@ namespace TestExamApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize]
+        [Authorize] 
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -116,7 +116,7 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
-        [Authorize]
+        [Authorize] 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
