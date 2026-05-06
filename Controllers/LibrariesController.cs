@@ -20,14 +20,20 @@ namespace TestExamApp.Controllers
             _context = context;
         }
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
         [AllowAnonymous] 
         public async Task<IActionResult> Index()
         {
             return View(await _context.Libraries.ToListAsync());
         }
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
         [AllowAnonymous] 
         public async Task<IActionResult> Details(int? id)
         {
@@ -46,14 +52,20 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
         [Authorize] 
         public IActionResult Create()
         {
             return View();
         }
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
         [Authorize] 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -68,7 +80,10 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
         [Authorize] 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -85,7 +100,10 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
         [Authorize] 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,7 +137,10 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
         [Authorize] 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -138,7 +159,10 @@ namespace TestExamApp.Controllers
             return View(library);
         }
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> fb9b1beab7602b5608347e123acd572ed99efb03
         [Authorize] 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

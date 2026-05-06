@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization; // 🔥 NY
+using Microsoft.AspNetCore.Authorization; 
 using TestExamApp.Data;
 using TestExamApp.Models;
 using TestExamApp.Services;
@@ -19,15 +19,14 @@ namespace TestExamApp.Controllers
             _apiService = apiService;
         }
 
-        // GET: Books
-        [AllowAnonymous] // 🔥 NY
+        [AllowAnonymous] 
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Books.Include(b => b.Library);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        [Authorize] // 🔥 NY
+        [Authorize] 
         public async Task<IActionResult> ImportFromApi()
         {
             var defaultLibrary = await _context.Libraries.FirstOrDefaultAsync();
@@ -61,7 +60,7 @@ namespace TestExamApp.Controllers
         }
 
         // GET: Books/Details/5
-        [AllowAnonymous] // 🔥 NY
+        [AllowAnonymous] 
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -81,16 +80,14 @@ namespace TestExamApp.Controllers
             return View(book);
         }
 
-        // GET: Books/Create
-        [Authorize] // 🔥 NY
+        [Authorize] 
         public IActionResult Create()
         {
             ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "Name");
             return View();
         }
 
-        // POST: Books/Create
-        [Authorize] // 🔥 NY
+        [Authorize] 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Author,Isbn,PublishedYear,LibraryId")] Book book)
@@ -106,8 +103,7 @@ namespace TestExamApp.Controllers
             return View(book);
         }
 
-        // GET: Books/Edit/5
-        [Authorize] // 🔥 NY
+        [Authorize] 
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -126,8 +122,7 @@ namespace TestExamApp.Controllers
             return View(book);
         }
 
-        // POST: Books/Edit/5
-        [Authorize] // 🔥 NY
+        [Authorize] 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Author,Isbn,PublishedYear,LibraryId")] Book book)
@@ -161,8 +156,7 @@ namespace TestExamApp.Controllers
             return View(book);
         }
 
-        // GET: Books/Delete/5
-        [Authorize] // 🔥 NY
+        [Authorize] 
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -182,8 +176,7 @@ namespace TestExamApp.Controllers
             return View(book);
         }
 
-        // POST: Books/Delete/5
-        [Authorize] // 🔥 NY
+        [Authorize] 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

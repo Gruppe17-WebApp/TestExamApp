@@ -1,23 +1,18 @@
-# Database:
-Prosjektet bruker SQLite og Entity Framework Core.
+# Database
+Prosjektet bruker SQLite sammen med Entity Framework Core for lagring av data.
 
-## DbContext:
-Data/ApplicationDbContext.cs
+Databasen er satt opp i `Data/ApplicationDbContext.cs` og inneholder tabellene `Libraries` og `Books`.
 
-## Tabeller:
-- Libraries
-- Books
+Det er laget en en-til-mange-relasjon mellom bibliotek og bøker:
+- Ett bibliotek kan ha flere bøker
+- Hver bok er koblet til ett bibliotek gjennom `LibraryId`
 
-## Relasjon:
-Library (1) -> Books (many)
+Databasen opprettes med migreringen:
 
-## Book har fremmednøkkel:
-LibraryId
+`20260504101947_InitialCreate`
 
-## Migration:
-20260504101947_InitialCreate
 
-## Opprett database:
+For å opprette databasen kan følgende kommando brukes:
 dotnet ef database update
 
 ## SeedData:
