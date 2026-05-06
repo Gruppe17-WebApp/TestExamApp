@@ -17,7 +17,7 @@ public class Book
     [StringLength(20)]
     public string? Isbn { get; set; }
 
-    [Range(1000, 2100)]
+    [Range(1000, 2100, ErrorMessage = "Utgivelsesår må være mellom 1000 og 2100")]
     public int PublishedYear { get; set; }
 
     [Required]
